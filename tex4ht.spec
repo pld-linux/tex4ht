@@ -18,40 +18,37 @@ Requires:	tetex-latex >= 0.4
 Requires:	latex2html
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-
 %description
-Program to convert (la)tex documents to xml, using (La)TeX
-to process images and equations.
+Program to convert (la)tex documents to xml, using (La)TeX to process
+images and equations.
 
 %description -l pl
 Program do konwertowania dokumentów TeXa do formatu XML.
 
 %prep
-%setup -c %{name}-%{version}
-unzip %{name}.zip
+%setup -q -c %{name}-%{version}
+unzip -q %{name}.zip
 %patch0 -p0
 
 %build
-
 cd temp
-%{__cc} -o tex4ht tex4ht.c -DHAVE_DIRENT_H
-%{__cc} -o t4ht t4ht.c -DHAVE_DIRENT_H
-%{__cc} -o htcmd htcmd.c -DHAVE_DIRENT_H
+%{__cc} %{rpmldflags} %{rpmcflags} -o tex4ht tex4ht.c -DHAVE_DIRENT_H
+%{__cc} %{rpmldflags} %{rpmcflags} -o t4ht t4ht.c -DHAVE_DIRENT_H
+%{__cc} %{rpmldflags} %{rpmcflags} -o htcmd htcmd.c -DHAVE_DIRENT_H
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT{%{_datadir},%{_bindir}}
 
-install temp/{tex4ht,t4ht,htcmd} $RPM_BUILD_ROOT%{_bindir} 
+install temp/{tex4ht,t4ht,htcmd} $RPM_BUILD_ROOT%{_bindir}
 for f in bin/unix/* ; do
 	cat $f | sed -e 's!~/tex4ht\.dir!%{_datadir}!' |\
 	sed -e 's! -i!-e%{_datadir}/texmf/tex4ht/base/tex4ht.env -i!'  |\
 	sed -e 's!## -d.*$!-e%{_datadir}/texmf/tex4ht/base/tex4ht.env!' >$f.tmp
-		
+
 	mv $f.tmp $f
 done
-install bin/unix/*  $RPM_BUILD_ROOT%{_bindir} 
+install bin/unix/*  $RPM_BUILD_ROOT%{_bindir}
 
 mkdir docs
 mv *.html *.css *.gif docs
@@ -63,7 +60,6 @@ cat unix/tex4ht.env | sed -e 's!~/tex4ht\.dir!%{_datadir}!' | \
 	sed -e 's!path/tex!%{_datadir}!' >./tex4ht.env
 rm -r win32
 rm -r unix
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
