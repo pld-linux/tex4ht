@@ -8,6 +8,7 @@ Group:		Applications/Publishing/TeX
 Source0:	http://www.ctan.org/tex-archive/support/TeX4ht/%{name}-mn.zip
 # Source0-md5:	c62ac8170b319602f88f1ed4016119b2
 Patch0:		%{name}-env-giftrans.patch
+BuildRequires:	unzip
 Requires:	ghostscript >= 4.03
 Requires:	giftrans
 Requires:	netpbm-progs
