@@ -43,17 +43,17 @@ install -d $RPM_BUILD_ROOT{%{_datadir},%{_bindir}}
 install temp/{tex4ht,t4ht,htcmd} $RPM_BUILD_ROOT%{_bindir}
 for f in bin/unix/* ; do
 	cat $f | sed -e 's!~/tex4ht\.dir!%{_datadir}!' |\
-	sed -e 's! -i!-e%{_datadir}/texmf/tex4ht/base/tex4ht.env -i!'  |\
+	sed -e 's! -i!-e%{_datadir}/texmf/tex4ht/base/tex4ht.env -i!' |\
 	sed -e 's!## -d.*$!-e%{_datadir}/texmf/tex4ht/base/tex4ht.env!' >$f.tmp
 
 	mv $f.tmp $f
 done
-install bin/unix/*  $RPM_BUILD_ROOT%{_bindir}
+install bin/unix/* $RPM_BUILD_ROOT%{_bindir}
 
 mkdir docs
 mv *.html *.css *.gif docs
 
-cp -r texmf  $RPM_BUILD_ROOT%{_datadir}
+cp -r texmf $RPM_BUILD_ROOT%{_datadir}
 cd $RPM_BUILD_ROOT%{_datadir}/texmf/tex4ht/base/
 
 cat unix/tex4ht.env | sed -e 's!~/tex4ht\.dir!%{_datadir}!' | \
@@ -64,7 +64,7 @@ rm -r unix
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p %{_bindir}/mktexlsr
+%post	-p %{_bindir}/mktexlsr
 %postun -p %{_bindir}/mktexlsr
 
 %files
