@@ -1,0 +1,19 @@
+diff -ru texmf/tex4ht/base/unix/tex4ht.env texmf.p/tex4ht/base/unix/tex4ht.env
+--- texmf/tex4ht/base/unix/tex4ht.env	2003-04-12 06:17:08.000000000 +0200
++++ texmf.p/tex4ht/base/unix/tex4ht.env	2003-06-10 20:57:22.000000000 +0200
+@@ -58,11 +58,10 @@
+ % dvips options                                                     %
+ %   magnification: -x mag  (e.g., -x 1200)                          %
+ %   page size:     -T x,y  (e.g., -T 14in,14in)                     %
+-Gdvips -Ppdf -mode ibmvga -D 110 -f %%1 -pp %%2 > zz%%4.ps
+-Ggs -sDEVICE=ppm -sOutputFile=zz%%4.ppm -r110x110 -dTextAlphaBits=2 -dGraphicsAlphaBits=2 -q -dbatch -dNOPAUSE zz%%4.ps -c quit
+-Gconvert  -crop 0x0 -density 110x110 -transparent '#FFFFFF' zz%%4.ppm %%3
+-Grm zz%%4.ps
+-Grm zz%%4.ppm
++
++Gdvips -T 14in,14in -Ppdf  -mode  epstypro -D 360 -f %%1 -pp %%2  > zz%%4.ps
++Gpstoimg -aaliastext -density 120 -scale 1 -crop a -out %%3 zz%%4.ps
++
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Default scripts, shifted rightward 1 pos
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
