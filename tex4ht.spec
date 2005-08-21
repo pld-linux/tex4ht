@@ -27,7 +27,7 @@ images and equations.
 Program do konwertowania dokumentów TeXa do formatu XML.
 
 %prep
-%setup -q -c %{name}-%{version}
+%setup -q -c
 unzip -q %{name}.zip
 %patch0 -p0
 
@@ -55,7 +55,7 @@ mkdir docs
 mv *.html *.css *.gif docs
 
 cp -r texmf $RPM_BUILD_ROOT%{_datadir}
-cd $RPM_BUILD_ROOT%{_datadir}/texmf/tex4ht/base/
+cd $RPM_BUILD_ROOT%{_datadir}/texmf/tex4ht/base
 
 cat unix/tex4ht.env | sed -e 's!~/tex4ht\.dir!%{_datadir}!' | \
 	sed -e 's!path/tex!%{_datadir}!' >./tex4ht.env
@@ -71,11 +71,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc docs/*
-
 %attr(755,root,root) %{_bindir}/*
-
-%{_datadir}/texmf/tex4ht
-
 %dir %{_datadir}/texmf/tex/generic/tex4ht
 %{_datadir}/texmf/tex/generic/tex4ht/*.4ht
 %{_datadir}/texmf/tex/generic/tex4ht/tex4ht.sty
+%{_datadir}/texmf/tex4ht
