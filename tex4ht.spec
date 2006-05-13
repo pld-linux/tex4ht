@@ -1,12 +1,12 @@
 Summary:	TeX to XML translator
 Summary(pl):	Konwerter z TeXa do XML-a
 Name:		tex4ht
-Version:	20030211
-Release:	1
+Version:	20050228
+Release:	0.1
 License:	LaTeX Project Public License
 Group:		Applications/Publishing/TeX
-Source0:	http://www.ctan.org/tex-archive/support/TeX4ht/%{name}-mn.zip
-# Source0-md5:	c62ac8170b319602f88f1ed4016119b2
+Source0:	http://www.ctan.org/tex-archive/support/TeX4ht/%{name}-all.zip
+# Source0-md5:	26eb8df2d6631794b3df0d6fb87a0219
 Patch0:		%{name}-env-giftrans.patch
 BuildRequires:	unzip
 Requires:	ghostscript >= 4.03
@@ -29,10 +29,10 @@ Program do konwertowania dokumentów TeXa do formatu XML.
 %prep
 %setup -q -c
 unzip -q %{name}.zip
-%patch0 -p0
+#%patch0 -p0
 
 %build
-cd temp
+cd src
 %{__cc} %{rpmldflags} %{rpmcflags} -o tex4ht tex4ht.c -DHAVE_DIRENT_H
 %{__cc} %{rpmldflags} %{rpmcflags} -o t4ht t4ht.c -DHAVE_DIRENT_H
 %{__cc} %{rpmldflags} %{rpmcflags} -o htcmd htcmd.c -DHAVE_DIRENT_H
@@ -41,18 +41,22 @@ cd temp
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_datadir},%{_bindir}}
 
-install temp/{tex4ht,t4ht,htcmd} $RPM_BUILD_ROOT%{_bindir}
+install src/{tex4ht,t4ht,htcmd} $RPM_BUILD_ROOT%{_bindir}
 for f in bin/unix/* ; do
 	cat $f | sed -e 's!~/tex4ht\.dir!%{_datadir}!' |\
-	sed -e 's! -i!-e%{_datadir}/texmf/tex4ht/base/tex4ht.env -i!' |\
+	sed -e 's! -i! -e%{_datadir}/texmf/tex4ht/base/tex4ht.env -i!' |\
 	sed -e 's!## -d.*$!-e%{_datadir}/texmf/tex4ht/base/tex4ht.env!' >$f.tmp
 
 	mv $f.tmp $f
 done
+for f in bin/unix/oo* ; do
+	sed -e 's!t4ht -f/$1 $4 -coo!t4ht -f/$1 $4 -coo -e%{_datadir}/texmf/tex4ht/base/tex4ht.env!' -i $f;
+done
+
 install bin/unix/* $RPM_BUILD_ROOT%{_bindir}
 
 mkdir docs
-mv *.html *.css *.gif docs
+mv *.html *.css *.png docs
 
 cp -r texmf $RPM_BUILD_ROOT%{_datadir}
 cd $RPM_BUILD_ROOT%{_datadir}/texmf/tex4ht/base
