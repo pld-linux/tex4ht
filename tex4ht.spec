@@ -16,15 +16,16 @@ Requires:	tetex-dvips >= 0.4
 Requires:	tetex-latex >= 0.4
 # latex2html is required for pstoimg script, that is provided by it
 # see Patch0
-Requires:	latex2html
+#Requires:	latex2html
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Program to convert (la)tex documents to xml, using (La)TeX to process
+Program to convert (La)TeX documents to XML, using (La)TeX to process
 images and equations.
 
 %description -l pl
-Program do konwertowania dokumentów TeXa do formatu XML.
+Program do konwertowania dokumentów (La)TeXa do formatu XML przy
+u¿yciu (La)TeXa do przetwarzania obrazów i równañ.
 
 %prep
 %setup -q -c
