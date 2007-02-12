@@ -1,5 +1,5 @@
 Summary:	TeX to XML translator
-Summary(pl):	Konwerter z TeXa do XML-a
+Summary(pl.UTF-8):   Konwerter z TeXa do XML-a
 Name:		tex4ht
 Version:	20050228
 Release:	0.1
@@ -23,9 +23,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Program to convert (La)TeX documents to XML, using (La)TeX to process
 images and equations.
 
-%description -l pl
-Program do konwertowania dokumentÛw (La)TeXa do formatu XML przy
-uøyciu (La)TeXa do przetwarzania obrazÛw i rÛwnaÒ.
+%description -l pl.UTF-8
+Program do konwertowania dokument√≥w (La)TeXa do formatu XML przy
+u≈ºyciu (La)TeXa do przetwarzania obraz√≥w i r√≥wna≈Ñ.
 
 %prep
 %setup -q -c
