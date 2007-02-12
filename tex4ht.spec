@@ -1,5 +1,5 @@
 Summary:	TeX to XML translator
-Summary(pl.UTF-8):   Konwerter z TeXa do XML-a
+Summary(pl.UTF-8):	Konwerter z TeXa do XML-a
 Name:		tex4ht
 Version:	20050228
 Release:	0.1
